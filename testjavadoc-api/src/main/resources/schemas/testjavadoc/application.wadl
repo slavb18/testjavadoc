@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns="http://wadl.dev.java.net/2009/02"
+    xmlns:tns="urn:ru:ilb:testjavadoc:model"
+    xmlns:core="urn:ru:ilb:testjavadoc:core"
+>
+	 
+    <doc title="testjavadoc API">
+        testjavadoc API
+    </doc>
+    <grammars>
+        <include href="model.xsd" />
+    </grammars>
+	
+    <resources base="http://localhost:8080/testjavadoc/web">
+        <resource path="documents">
+            <doc>
+                documents resource
+            </doc>
+            <method name="GET" id="list">
+                <request>
+                    <param name="options" type="tns:ReadOptionsType" style="query" repeating="true"/>
+                    <param name="filter" type="xsd:string" style="query"/>
+                    <param name="limit" type="xsd:int" style="query"/>
+                    <param name="order" type="xsd:string" style="query"/>
+                </request>
+                <doc>List of documents</doc>
+                <response status="200">
+                    <representation mediaType="application/xml" element="tns:documents"/>
+                    <representation mediaType="application/json"/>
+                </response>
+            </method>
+            <method name="POST" id="create">
+                <doc>create new document instance</doc>
+                <request>
+                    <representation mediaType="application/xml" element="tns:document"/>
+                    <representation mediaType="application/json"/>
+                </request>
+                <response>
+                    <representation mediaType="text/plain" element="core:UUIDType">
+                        <doc>UUID of created object</doc>
+                    </representation>
+                </response>
+            </method>
+            <resource path="{uid}">
+                <param name="uid" type="core:UUIDType" style="template">
+                    <doc>document uid</doc>
+                </param>
+                <method name="GET" id="find">
+                    <doc>get document instance</doc>
+                    <response status="200">
+                        <representation mediaType="application/xml" element="tns:document"/>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+                <method name="PUT" id="edit">
+                    <doc>edit document instance</doc>
+                    <request>
+                        <representation mediaType="application/xml" element="tns:document"/>
+                        <representation mediaType="application/json"/>
+                    </request>
+                    <response status="204"/>
+                </method>
+                <method name="DELETE" id="remove">
+                    <doc>remove document instance</doc>
+                    <response status="204"/>
+                </method>
+            </resource>
+        </resource>
+    </resources>
+</application> 

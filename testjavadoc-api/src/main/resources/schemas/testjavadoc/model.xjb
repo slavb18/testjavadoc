@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings elementFormDefault="qualified"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               xmlns:annox="http://annox.dev.java.net"
+               xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+               xmlns:core="urn:ru:ilb:testjavadoc:core"
+               jaxb:version="2.1"
+               xmlns:jpa="http://annox.dev.java.net/javax.persistence"
+               jaxb:extensionBindingPrefixes="xjc annox inheritance"
+               schemaLocation="model.xsd" node="/xsd:schema"
+>
+    <!-- example how to make implementation class, jaxb:baseType required for List<> properties -->
+    <!--
+    <jaxb:bindings node="//xsd:complexType[@name='DocumentType']">
+        <jaxb:class  implClass="ru.ilb.testjavadoc.documents.Document"/>
+    </jaxb:bindings>
+    <jaxb:bindings multiple="true" node="//xsd:element[@ref='document']">
+        <jaxb:property>
+            <jaxb:baseType name="Document"/>
+        </jaxb:property>
+    </jaxb:bindings>
+    -->
+</jaxb:bindings>
+

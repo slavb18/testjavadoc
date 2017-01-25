@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings elementFormDefault="qualified"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               xmlns:annox="http://annox.dev.java.net"
+               xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+               xmlns:core="urn:ru:ilb:testjavadoc:core"
+               jaxb:version="2.1"
+               xmlns:jpa="http://annox.dev.java.net/javax.persistence"
+               jaxb:extensionBindingPrefixes="xjc annox inheritance"
+               schemaLocation="core.xsd" node="/xsd:schema"
+>
+    <jaxb:globalBindings>
+        <!--
+            Experimental simpler&better binding mode
+            https://jaxb.java.net/2.1.2/docs/vendorCustomizations.html#simple
+        -->
+        <xjc:simple/>
+        <xjc:serializable/>
+        <!--        
+        <xjc:javaType name="java.util.Date" xmlType="xsd:date" adapter="ru.ilb.common.jaxb.adapters.DateXmlAdapter" />
+        <xjc:javaType name="java.util.Date" xmlType="xsd:dateTime" adapter="ru.ilb.common.jaxb.adapters.DateTimeXmlAdapter" />
+        -->
+        <!-- java 8 java.time.* classes -->
+        <xjc:javaType name="java.time.LocalDate" xmlType="xsd:date" adapter="com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter" />
+        <xjc:javaType name="java.time.LocalDateTime" xmlType="xsd:dateTime" adapter="com.migesok.jaxb.adapter.javatime.LocalDateTimeXmlAdapter" /> 
+        <xjc:javaType name="java.time.LocalTime" xmlType="xsd:time" adapter="com.migesok.jaxb.adapter.javatime.LocalTimeXmlAdapter" />
+        <xjc:javaType name="java.util.UUID" xmlType="core:UUIDType" adapter="ru.ilb.common.jaxb.adapters.UUIDXmlAdapter" />
+        
+    </jaxb:globalBindings>
+    
+    <!--    <jaxb:bindings node="//xsd:complexType[@name='PeristentObjectType']">
+        <jaxb:class implClass="ru.ilb.loanaccounting.core.PeristentObject"/>
+    </jaxb:bindings>
+    <jaxb:bindings node="//xsd:complexType[@name='EntityType']">
+        <jaxb:class implClass="ru.ilb.loanaccounting.core.Entity"/>
+    </jaxb:bindings>
+    <jaxb:bindings node="//xsd:complexType[@name='ValueObjectType']">
+        <jaxb:class implClass="ru.ilb.loanaccounting.core.ValueObject"/>
+    </jaxb:bindings>-->
+
+</jaxb:bindings>
+

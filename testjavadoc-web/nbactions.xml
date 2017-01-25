@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-debug build process</actionName>
+            <displayName>clean install with debuger</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+                <goal>-X</goal>
+                <goal>-DOASISCatalogManager.catalog.debug.level=99</goal>
+            </goals>
+            <properties>
+                <jpda.listen>maven</jpda.listen>
+            </properties>
+        </action>
+    </actions>

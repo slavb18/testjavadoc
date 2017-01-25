@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified" xmlns="urn:ru:ilb:testjavadoc:core"
+            targetNamespace="urn:ru:ilb:testjavadoc:core"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:simpleType name="UUIDType">
+        <xsd:annotation>
+            <xsd:documentation>Universally Unique Identifier</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="36"/>
+            <xsd:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:complexType name="PersistentObjectType" abstract="true">
+        <xsd:attribute name="id" type="xsd:long"/>
+        <xsd:attribute name="versionId" type="xsd:int"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="EntityType" abstract="true">
+        <xsd:complexContent>
+            <xsd:extension base="PersistentObjectType">
+                <xsd:attribute name="uid" type="UUIDType"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="ValueObjectType" abstract="true">
+        <xsd:complexContent>
+            <xsd:extension base="PersistentObjectType">
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+    <xsd:simpleType name="notEmptyString">
+        <xsd:annotation>
+            <xsd:documentation>Not empty string (cannot contain only spaces)</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:pattern value=".*[^\s&#x0A0;].*" />
+            <xsd:whiteSpace value="collapse" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+</xsd:schema>
