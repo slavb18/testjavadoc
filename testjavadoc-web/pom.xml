@@ -21,7 +21,7 @@
         <eclipselink.version>2.6.4</eclipselink.version>
         <javax-persistence.version>2.1.0</javax-persistence.version>
         <org.springframework.version>4.3.3.RELEASE</org.springframework.version>
-        <maven.test.skip>true</maven.test.skip>
+        <maven.test.skip>false</maven.test.skip>
         <maven.tomcat.skip>${maven.test.skip}</maven.tomcat.skip>
         <maven-JarWar-Plugin.Version>2.4</maven-JarWar-Plugin.Version>
     </properties>
@@ -177,6 +177,73 @@
                 <version>2.1.1</version>
                 <configuration></configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.17</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+
+                <version>2.2</version>
+
+                <configuration>
+                    <path>/testjavadoc-web</path>
+                    <contextFile>${basedir}/src/test/resources/tomcat/context.xml</contextFile>
+                    <useTestClasspath>true</useTestClasspath>
+                </configuration>
+
+                <executions>
+                    <!-- At pre-integration-test phase, run the war in an embedded Tomcat server. -->
+                    <execution>
+                        <id>start-tomcat</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>run-war-only</goal>
+                        </goals>
+                        <configuration>
+                            <port>59190</port>
+                            <fork>true</fork>
+                        </configuration>
+                    </execution>
+                    <!-- At post-integration-test phase, stop the embedded Tomcat server. -->
+                    <execution>
+                        <id>stop-tomcat</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>shutdown</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <!-- Used to allow embedded Tomcat to connect to a MySQL database -->
+<!--                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql-connector.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.eclipse.persistence</groupId>
+                        <artifactId>javax.persistence</artifactId>
+                        <version>${javax-persistence.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.eclipse.persistence</groupId>
+                        <artifactId>eclipselink</artifactId>
+                        <version>${eclipselink.version}</version>
+                    </dependency>-->
+                </dependencies>
+            </plugin>
+            
         </plugins>
     </build>
 </project>
